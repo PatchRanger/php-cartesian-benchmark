@@ -6,10 +6,11 @@ php:
 before_script:
     - composer self-update
     - composer update --dev -o -n
-    - echo 'xdebug.max_nesting_level = 1000' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
+    - echo 'xdebug.max_nesting_level = 10000' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
 
 script:
-    - php bin/console benchcart --count 1 --by 1
-    - php bin/console benchcart --count 1 --by 250
-    - php bin/console benchcart --count 250 --by 1
+    - php bin/console benchcart --count 1 --by 10000
+    - php bin/console benchcart --count 2 --by 1000
+    - php bin/console benchcart --count 3 --by 100
+    - php bin/console benchcart --count 4 --by 10
     - php bin/console benchcart --count 5 --by 5
