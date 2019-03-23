@@ -4,9 +4,6 @@ php:
     - 7.1
 
 before_script:
-    #- pecl install pcntl
-    #- pecl install posix
-    #- pecl install shmop
     - composer self-update
     - composer update --dev -o -n
 

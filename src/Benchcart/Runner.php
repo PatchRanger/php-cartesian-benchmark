@@ -2,8 +2,6 @@
 
 namespace Benchcart;
 
-use Jenner\SimpleFork\Process;
-use Spork\Fork;
 use Spork\ProcessManager;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Stopwatch\Stopwatch;
@@ -31,8 +29,6 @@ class Runner
 	{
 		$iterators = $this->prepareIterators($count, $by);
 
-		//$pool = new SinglePool();
-
 		$manager = new ProcessManager();
 		/** @var Result[] $results */
 		$results = [];
@@ -41,24 +37,6 @@ class Runner
 				continue;
 			}
 
-			/*$workerFn = function () use ($task, $iterators, &$results) {
-				echo sprintf('[%s] start. Results: %d', $task->getName(), count($results));
-				$stopwatch = new Stopwatch();
-				$stopwatch->start('iterating');
-				$task->prepare();
-				$stopwatch->lap('iterating');
-				$e = null;
-				try {
-					$task->run($iterators);
-				} catch (\Throwable $e) {
-					// Handled by finally.
-				} finally {
-					$event = $stopwatch->stop('iterating');
-					$results[] = new Result($task->getName(), $event, $e);
-				}
-			};
-
-			$pool->execute(new Process($workerFn));*/
 			$fork = $manager
 				->fork(function() use ($task, $iterators) {
 					echo sprintf('[%s] start.', $task->getName());
@@ -80,39 +58,20 @@ class Runner
 			$error = $fork->getError();
 			$results[] = new Result($task->getName(), $event, $error);
 		}
-		//$pool->wait(true);
 
-		/*$tasksIterator = new \ArrayIterator($this->tasks);
-		$manager = new ProcessManager();
-		return $manager
-			->process($tasksIterator, function (TaskInterface $task) use ($iterators) {
-				echo sprintf('[%s] start.', $task->getName());
-				$stopwatch = new Stopwatch();
-				$stopwatch->start('iterating');
-				$task->prepare();
-				$stopwatch->lap('iterating');
-				$e = null;
-				try {
-					$task->run($iterators);
-				} catch (\Throwable $e) {
-					// Handled by finally.
-				} finally {
-					$event = $stopwatch->stop('iterating');
-					return new Result($task->getName(), $event, $e);
-				}
-			})
-			->always(function (Fork $fork) {
-				$error = $fork->getError();
-				return $fork->getResult();
-			});*/
 		return $results;
 	}
 
 	/**
+	 * This does not as it populates with the same iterator and \MultipleIterator attaches only one of them.
+	 * ```
+	 * return array_fill(0, $count, new \ArrayIterator(range(1, $by)));
+	 * ```
 	 * @return \Iterator[]
 	 */
 	private function prepareIterators(int $count, int $by): array
 	{
-		return array_fill(0, $count, new \ArrayIterator(range(1, $by)));
+		$arrayIterator = new \ArrayIterator(range(1, $by));
+		return array_map(function () use ($arrayIterator) { return clone $arrayIterator; }, range(1, $count));
 	}
 }

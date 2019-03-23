@@ -10,30 +10,29 @@ use Nerd\CartesianProduct\CartesianProduct;
  */
 class Th3n3rdCartesianProductTask implements TaskInterface
 {
-    /** @var CartesianProduct */
-    private $cartesianProduct;
+	/** @var CartesianProduct */
+	private $cartesianProduct;
 
-    public function getName()
-    {
-        return 'th3n3rd/cartesian-product';
-    }
+	public function getName()
+	{
+		return 'th3n3rd/cartesian-product';
+	}
 
-    public function prepare()
-    {
-        $this->cartesianProduct = new CartesianProduct();
-    }
+	public function prepare()
+	{
+		$this->cartesianProduct = new CartesianProduct();
+	}
 
-    public function run(array $iterators)
-    {
-        foreach ($iterators as $key => $iterator) {
-            $this->cartesianProduct->appendSet(iterator_to_array($iterator));
-        }
-        iterator_to_array($this->cartesianProduct);
-    }
+	public function run(array $iterators)
+	{
+		foreach ($iterators as $key => $iterator) {
+			$this->cartesianProduct->appendSet(iterator_to_array($iterator));
+		}
+		iterator_apply($this->cartesianProduct, function () { return true; }, [$this->cartesianProduct]);
+	}
 
-    public function isValid()
-    {
-        return version_compare(PHP_VERSION, '5.3.3') === 1;
-    }
-
+	public function isValid()
+	{
+		return version_compare(PHP_VERSION, '5.3.3') === 1;
+	}
 }

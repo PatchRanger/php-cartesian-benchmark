@@ -21,7 +21,6 @@
 		"patchranger/cartesian-iterator": "dev-master",
 		"bentools/cartesian-product": "dev-master",
 		"th3n3rd/cartesian-product": "dev-master",
-		"jenner/simple_fork": "dev-master",
 		"kriswallsmith/spork": "dev-master"
 	},
 	"autoload": {
