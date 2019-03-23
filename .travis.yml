@@ -9,6 +9,6 @@ before_script:
 
 script:
     - php bin/console benchcart --count 1 --by 1
-    - php bin/console benchcart --count 1 --by 1000
-    - php bin/console benchcart --count 1000 --by 1
-    - php bin/console benchcart --count 100 --by 100
+    - php bin/console benchcart --count 1 --by 250
+    - php bin/console benchcart --count 250 --by 1
+    - php bin/console benchcart --count 15 --by 15
