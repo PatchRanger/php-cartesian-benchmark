@@ -12,4 +12,4 @@ script:
     - php bin/console benchcart --count 1 --by 1
     - php bin/console benchcart --count 1 --by 250
     - php bin/console benchcart --count 250 --by 1
-    - php bin/console benchcart --count 10 --by 10
+    - php bin/console benchcart --count 5 --by 5
