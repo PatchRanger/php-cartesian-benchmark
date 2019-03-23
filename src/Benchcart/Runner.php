@@ -54,6 +54,10 @@ class Runner
 					}
 				})
 				->wait();
+			$output = $fork->getOutput();
+			if ($output) {
+				echo $output . "\n";
+			}
 			$event = $fork->getResult();
 			$error = $fork->getError();
 			$results[] = new Result($task->getName(), $event, $error);
@@ -63,7 +67,7 @@ class Runner
 	}
 
 	/**
-	 * This does not as it populates with the same iterator and \MultipleIterator attaches only one of them.
+	 * This does not work as it populates with the same iterator and \MultipleIterator attaches only one of them.
 	 * ```
 	 * return array_fill(0, $count, new \ArrayIterator(range(1, $by)));
 	 * ```
