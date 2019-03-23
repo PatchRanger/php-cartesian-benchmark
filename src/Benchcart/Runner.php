@@ -59,7 +59,7 @@ class Runner
 			};
 
 			$pool->execute(new Process($workerFn));*/
-			$results[] = $manager
+			$fork = $manager
 				->fork(function() use ($task, $iterators) {
 					echo sprintf('[%s] start.', $task->getName());
 					$stopwatch = new Stopwatch();
@@ -75,13 +75,10 @@ class Runner
 						return $event;
 					}
 				})
-				->always(function(Fork $fork) use ($task) {
-					$error = $fork->getError();
-					$event = $fork->getResult();
-					return new Result($task->getName(), $event, $error);
-				})
-				->wait()
-				->getResult();
+				->wait();
+			$event = $fork->getResult();
+			$error = $fork->getError();
+			$results[] = new Result($task->getName(), $event, $error);
 		}
 		//$pool->wait(true);
 
