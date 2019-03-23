@@ -52,8 +52,13 @@ class Runner
 						echo sprintf('[%s] finished.', $task->getName());
 						return $event;
 					}
-				})
-				->wait();
+				});
+
+			while (!$fork->isExited() && !$fork->isStopped() && !$fork->isSignaled()) {
+				$fork->wait(false);
+				sleep(0.1);
+			}
+
 			$output = $fork->getOutput();
 			if ($output) {
 				echo $output . "\n";
