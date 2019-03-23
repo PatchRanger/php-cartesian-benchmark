@@ -49,11 +49,16 @@ class BenchcartCommand extends Command
 		});
 
 		$rows = array_map(function(Result $result) {
-			return [$result->getName(), $result->getDuration(), $result->getMemory()];
+			return [
+				$result->getName(),
+				$result->getDuration(),
+				$result->getMemory(),
+				$result->getException() ? $result->getException()->getMessage() : null,
+			];
 		}, $results);
 
 		$table = new Table($output);
-		$table->setHeaders(['package', 'duration (MS)', 'MEM (B)']);
+		$table->setHeaders(['package', 'duration (MS)', 'MEM (B)', 'Error (if any)']);
 		$table->addRows($rows);
 		$table->render();
 	}

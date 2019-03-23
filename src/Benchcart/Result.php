@@ -8,11 +8,13 @@ class Result
 {
 	private $name;
 	private $event;
+	private $exception;
 
-	public function __construct($name, StopwatchEvent $event)
+	public function __construct($name, StopwatchEvent $event, ?\Throwable $e = null)
 	{
 		$this->name = $name;
 		$this->event = $event;
+		$this->exception = $e;
 	}
 
 	public function getName()
@@ -29,4 +31,9 @@ class Result
 	{
 		return $this->event->getMemory();
 	}
+
+	public function getException(): ?\Throwable
+    {
+        return $this->exception;
+    }
 }
