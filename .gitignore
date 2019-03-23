@@ -1,0 +1,8 @@
+# IDE
+.idea/
+# composer
+composer.phar
+composer.lock
+vendor/
+cache/
+

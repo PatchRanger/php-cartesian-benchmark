@@ -1,0 +1,30 @@
+{
+	"name": "patchranger/php-cartesian-benchmark",
+	"type": "library",
+	"description": "PHP cartesian benchmark.",
+	"keywords": ["cartesian", "cartesian-product","iterator", "benchmark"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Dmitry Danilson",
+			"email": "patchranger@gmail.com"
+		}
+	],
+	"require": {
+		"symfony/console": "^4.0",
+		"symfony/finder": "^4.0",
+		"symfony/stopwatch": "^4.0",
+		"symfony/serializer": "^4.0",
+		"doctrine/annotations": "^1.6",
+		"phpdocumentor/reflection-docblock": "^4.3",
+		"patchranger/cartesian-iterator": "dev-master",
+		"bentools/cartesian-product": "dev-master",
+		"th3n3rd/cartesian-product": "dev-master"
+	},
+	"autoload": {
+		"psr-0": {
+			"": "src"
+		}
+	},
+	"bin": ["bin/console"]
+}
