@@ -79,7 +79,9 @@ class Runner
 					$error = $fork->getError();
 					$event = $fork->getResult();
 					return new Result($task->getName(), $event, $error);
-				});
+				})
+				->wait()
+				->getResult();
 		}
 		//$pool->wait(true);
 
