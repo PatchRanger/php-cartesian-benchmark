@@ -10,7 +10,11 @@ before_script:
 
 script:
     - php bin/console benchcart --count 1 --by 10000
-    - php bin/console benchcart --count 2 --by 1000
-    - php bin/console benchcart --count 3 --by 100
-    - php bin/console benchcart --count 4 --by 10
-    - php bin/console benchcart --count 5 --by 5
+    - php bin/console benchcart --count 2 --by 5000
+    - php bin/console benchcart --count 3 --by 3300
+    - php bin/console benchcart --count 4 --by 2500
+    - php bin/console benchcart --count 5 --by 2000
+    - php bin/console benchcart --count 10 --by 1000
+    - php bin/console benchcart --count 100 --by 100
+    - php bin/console benchcart --count 1000 --by 10
+    - php bin/console benchcart --count 10000 --by 1
