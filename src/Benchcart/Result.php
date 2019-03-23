@@ -10,7 +10,7 @@ class Result
 	private $event;
 	private $exception;
 
-	public function __construct($name, StopwatchEvent $event, ?\Throwable $e = null)
+	public function __construct($name, ?StopwatchEvent $event = null, $e = null)
 	{
 		$this->name = $name;
 		$this->event = $event;
@@ -24,15 +24,15 @@ class Result
 
 	public function getDuration()
 	{
-		return $this->event->getDuration();
+		return $this->event ? $this->event->getDuration() : null;
 	}
 
 	public function getMemory()
 	{
-		return $this->event->getMemory();
+		return $this->event ? $this->event->getMemory() : null;
 	}
 
-	public function getException(): ?\Throwable
+	public function getException()
     {
         return $this->exception;
     }
