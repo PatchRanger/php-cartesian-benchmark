@@ -56,7 +56,7 @@ class Runner
 
 			$pool->execute(new Process($workerFn));
 		}
-		$pool->wait();
+		$pool->wait(true);
 		return $results;
 	}
 
