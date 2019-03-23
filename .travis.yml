@@ -5,7 +5,7 @@ php:
 
 before_script:
     - composer self-update
-    - composer update --dev -o -n --ignore-platform-reqs
+    - composer update --dev -o -n
 
 script:
     - php bin/console benchcart --count 1 --by 1
